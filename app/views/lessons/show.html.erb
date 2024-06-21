@@ -1,0 +1,199 @@
+<div class="container position-relative" data-controller="answer">
+  <!-- Navigation and Exit Button Row -->
+  <div class="row fixed-top bg-white align-items-center py-4 mb-3 shadow-sm p-3 mb-5 rounded">
+    <div class="col-1 d-flex justify-content-start ms-3">
+      <%= link_to course_path(@lesson.course.title), class: "btn btn-link p-0" do %>
+        <i class="fas fa-times fa-1x"></i>
+      <% end %>
+    </div>
+
+    <% prev_step_number = @step.order - 1 %>
+    <% next_step_number = @step.order + 1 %>
+
+    <% if prev_step_number > 0 %>
+      <div class="col-1 d-flex justify-content-center">
+        <%= button_to user_progress_path(@user_progress, step: prev_step_number), method: :patch, class: "btn btn-link p-0" do %>
+          <i class="fas fa-arrow-left fa-1x" style="color: #d3d3d3"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-1"></div>
+    <% end %>
+
+    <% progress = (@step.order.to_f / @lesson.steps.count * 100).round %>
+    <% total_steps = @lesson.steps.count %>
+    <% current_step = @step.order %>
+
+    <div class="col-8 d-flex align-items-center">
+      <% total_steps.times do |i| %>
+        <div class="progress-segment <%= 'bg-primary' if i < current_step %> flex-grow-1 mx-1">
+          <small class="invisible-text"><%= i + 1 %></small>
+        </div>
+      <% end %>
+    </div>
+
+    <% if next_step_number <= @lesson.steps.count %>
+      <div class="col-1 d-flex justify-content-center">
+        <%= button_to user_progress_path(@lesson.user_progresses.for(current_user), step: next_step_number), method: :patch, class: "btn btn-link p-0" do %>
+          <i class="fas fa-arrow-right fa-1x" style="color: #d3d3d3"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-1"></div>
+    <% end %>
+  </div>
+
+  <!-- Lesson Title Content and Button Row -->
+  <div class="row mt-5 pt-4 d-flex justify-content-center">
+    <div class="container-lesson col-6">
+      <div class="text-align-left">
+        <% if @step.question? %>
+          <% if @step.fill? %>
+            <h3 class="card-title card-fill d-flex flex-wrap justify-content-left mt-2">
+              <%= raw build_fill_step(@step.content) %>
+            </h3>
+          <% else %>
+            <h3 class="card-title justify-content-center mt-3"><%= @step.content %></h3>
+          <% end %>
+        <% else %>
+          <h3 class="card-title justify-content-center mt-3"><%= @step.title %></h3>
+        <% end %>
+      </div>
+
+      <div class="mb-4 d-flex justify-content-center">
+        <% if @step.tutorial? %>
+          <div class="card-step text-justify mt-3">
+          <p> <%= @step.content %> </p>
+            <div class="text-center mt-4 container-image-step">
+              <% if @step.image_name? %>
+                <%= image_tag @step.image_name, class: "card-image-step"%>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="<%= @step.fill? ? 'card-fill' : '' %> questions mb-2">
+        <% if @step.question? %>
+          <div class="<%= @step.fill? ? 'container' : 'list-group mt-3' %> card-answers d-flex justify-content-center">
+            <% if @step.fill? %>
+              <div class="row">
+                <% @step.answers.each_with_index do |answer, index| %>
+                  <div class="col-md-6 mb-4">
+                    <div class="answer-disabled answer-fill item<%= index + 1 %>">
+                      <h4 data-fill-role="origin" ondragover="allowDrop(event)" ondrop="drop(event)"> 💁
+                        <span id="fill-answer-<%= index + 1 %>" draggable="true" ondragstart="drag(event)" data-answer-target="answer" data-correct="<%= answer.is_correct %>" data-order="<%= answer.order %>">
+                          <%= answer.content %>
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <% @step.answers.each_with_index do |answer, index| %>
+                <div class="answer-disabled" data-answer-target="answer" data-action="click->answer#enableBtn" data-correct="<%= answer.is_correct %>">
+                  <h4> 💁 <%= answer.content %></h4>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!--Buttons are now here-->
+
+      <div class="d-flex justify-content-end">
+        <% if next_step_number <= @lesson.steps.count %>
+
+          <% if @step.tutorial? %>
+            <%= button_to user_progress_path(@lesson.user_progresses.for(current_user), step: next_step_number),
+            method: :patch,
+            class: "btn-custom-lesson" do %>
+              Continue
+            <% end %>
+
+
+          <% else %>
+            <%#= button_to data:{ action: "click->answer#checkAnswer" }, class: "btn-custom-lesson-disabled" do %>
+            <% if @step.fill? %>
+              <button data-answer-target="buttonCheck" data-action="click->answer#checkAnswerFill" class="btn-custom-lesson-disabled" id="buttonCheck" disabled>
+                Check
+              </button>
+            <% else %>
+              <button data-answer-target="buttonCheck" data-action="click->answer#checkAnswer" class="btn-custom-lesson-disabled" id="buttonCheck" disabled>
+                Check
+              </button>
+            <% end %>
+
+            <div data-answer-target="buttonContinue" class="d-none">
+              <%= button_to user_progress_path(@lesson.user_progresses.for(current_user), step: next_step_number),
+              method: :patch,
+              class: "btn-custom-lesson" do %>
+                Continue
+              <% end %>
+            </div>
+            <%# end %>
+          <% end %>
+
+        <% else %>
+          <div class="button">
+            <%= button_to complete_user_progress_path(@user_progress),
+            data:{controller: "click-sound", action: "click-sound#click", click_sound_url_value: "#{asset_url 'finish-sound.mp3'}"},
+            method: :patch,
+            class: "btn-custom-lesson" do %>
+              Finish lesson
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  if (ev.toElement.dataset.fillRole === "origin") {
+    document.getElementById(data).parentNode.insertAdjacentHTML("afterbegin", "______")
+  } else if (ev.toElement.dataset.fillRole === "destination") {
+    ev.target.textContent = "";
+  }
+
+  ev.target.appendChild(document.getElementById(data));
+  checkAllFilled();
+}
+
+function checkAllFilled() {
+  const buttonCheck  = document.getElementById("buttonCheck");
+  const destinations = document.querySelectorAll("[data-fill-role='destination']");
+
+  let filledCount = 0;
+  destinations.forEach(destination => {
+    if (destination.innerHTML.includes("fill-answer")) {
+      filledCount++;
+    }
+  });
+
+  if (filledCount === 2) {
+    buttonCheck.disabled = false;
+    buttonCheck.classList.remove('btn-custom-lesson-disabled');
+    buttonCheck.classList.add('btn-custom-lesson-active');
+  } else {
+    buttonCheck.disabled = true;
+    buttonCheck.classList.remove('btn-custom-lesson-active');
+    buttonCheck.classList.add('btn-custom-lesson-disabled');
+  }
+}
+</script>

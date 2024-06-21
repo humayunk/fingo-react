@@ -1,0 +1,97 @@
+<div class="container">
+
+  <div class="my-5">
+    <h2>Fam, I mean <%= current_user.first_name %>, you're on a <%= current_user.streak %>-day streak!</h2>
+  </div>
+
+  <% if current_user && current_user.in_progress_courses.any? %>
+
+
+      <div class="row d-flex justify-content-between">
+
+        <div class="col-md-6 mb-4">
+           <h3 class="mb-4">💪 Get back into it</h3>
+            <div class="card-dashboard h-100 ">
+              <%= link_to course_path(current_user.most_recently_accessed_course.title), class: "d-flex flex-column text-decoration-none text-dark" do %>
+                <div class="card-image-container-lg">
+                  <%= image_tag current_user.most_recently_accessed_course.image_name, alt: '', class: "card-image" %>
+                </div>
+                <div>
+                  <h4><%= current_user.most_recently_accessed_course.title %></h4>
+                  <p><%= current_user.most_recently_accessed_course.description %></p>
+                </div>
+                <div class="progress mt-1 rounded">
+                  <div class="progress-bar" role="progressbar" style="width: <%= @progress_course %>%;"></div>
+                </div>
+              <% end %>
+            </div>
+
+        </div>
+
+
+          <div class="col-md-6 mb-4">
+          <h3 class="mb-4">🐐 Who the goat?</h3>
+            <div class="card-dashboard h-100 ">
+              <div>
+                <% @top_five.each_with_index do |user, index| %>
+                  <%# below class_names is for conditional styling of the current user (if user is in top 5) %>
+                  <%# Can add multiple classes e.g. class_names("bg-dark", {"text-warning": user == current_user })  %>
+            <div class="d-flex justify-content-between align-items-center mx-2">
+              <div class="d-flex justify-content-start align-items-center">
+                <div class="p-2">
+                  <h4><%= index + 1 %></h4>
+                </div>
+                <div class="circle p-2">
+                  <%= image_tag user.avatar.present? ? user.avatar : "cheems.png", class: "avatar" %>
+                </div>
+                <div class="p-2">
+                  <h4><%= user.first_name %></h4>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end align-items-center">
+                <h4 style="color: #899098;"><%= user.coins %> xp </h4>
+              </div>
+            </div>
+            <hr>
+                <% end %>
+                <% if !@current_user_in_top_five %>
+                  <p>...</p>
+                  <%# for demo purposes, if want to have ~6000 users for rank, make conditional e.g.  %>
+                  <%# if current_user.first_name == "Ryan" && current_user.last_name == "Ryan's last name" ie. the demo user  %>
+                  <%# display e.g. 6003 for rank! So Ryan can be super competitive  %>
+                  <p> <%= current_user.current_rank %>. <%= current_user.first_name %> <%= current_user.coins %> xp </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+  <% else %>
+    <h3>You're not yet enrolled in any courses! Get started now!</h3>
+  <% end %>
+
+
+
+
+<!--  <div class="mt-8">
+    <h3>Recommended for you:</h3>
+  </div>
+  <%# @recommended_courses = Course.user_not_enrolled(current_user).take(3) %>-->
+  <%# @recommended_courses.each do |course| %>
+<!--    <div class="col-md-4 mb-4">
+        <div class="card-course  h-100">
+            <%#= link_to course_path(course.title), class: "d-flex flex-column text-decoration-none text-dark" do %>-->
+<!--            <div style="margin-bottom: 2rem;">-->
+              <%#= image_tag course.image_name, alt: '', class: "custom-image" %>
+<!--            </div>
+            <div>
+              <h3><%#= course.title %></h3>
+              <p><%#= course.description %></p>
+            </div>
+          <%# end %>-->
+<!--        </div>
+      </div>
+  <%# end %>-->
+</div>

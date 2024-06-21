@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card-course-show h-100">
+        <div class="card-body">
+          <div class="card-image-container">
+              <%= image_tag @course.image_name, alt: '', class: "card-image" %>
+          </div>
+          <h3 class="mt-4"><%= @course.title %></h3>
+          <p class=""><%= @course.description %></p>
+          <!--<p class=""><i class="fas fa-book"></i> <%#= pluralize(@course.lessons.count, 'Lesson') %></p>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="title-border-bottom">
+        <h3>Lessons</h3>
+      </div>
+      <%= render 'lessons_list' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+.feedback-border {
+  border-top: 5px solid #F0F0F0;
+  padding-top: 10px;
+  height: 200px;
+}
+
+.feedback-success {
+  background-color: $light-green;
+}
+
+.card-answers {
+  margin: 0; /* Reduce top margin to bring options closer to the question */
+  padding: 0;
+}
+
+.answer-disabled {
+  border: 5px solid #F0F0F0 !important;
+  border-radius: 0.5rem;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px #F0F0F0;
+  margin-bottom: 1rem;
+}
+
+.answer-disabled:hover {
+  box-shadow: 8px 8px 0px #F0F0F0;
+  cursor: pointer;
+  background-color: #f8f9fa ;
+}
+
+.answer-active {
+  border: 5px solid $blue !important;
+  border-radius: .5rem;
+  background-color: $light-blue;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px $blue;
+  margin-bottom: 1rem;
+}
+
+.answer-success {
+  border: 5px solid $light-green !important;
+  background-color: $lightest-green;
+  border-radius: .5rem;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px $light-green;
+  margin-bottom: 1rem;
+}
+
+.answer-error {
+  border: 5px solid $red !important;
+  background-color: $light-red;
+  border-radius: .5rem;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px $red;
+  margin-bottom: 1rem;
+}
+
+.image-feedback {
+  height: 100px;
+  margin-right: 5rem;
+}
+ .container-image-step{
+  width: 100%; /* The container will take up the full width of its parent */
+  height: 300px; /* The container has a fixed height of 200px */
+  overflow: hidden; /* Any overflow content will be hidden */
+  margin-bottom: 0.5rem; /* Adds space below the container */
+  position: relative;
+ }
+
+ .card-image-step{
+  width: 100%; /* The image will take up the full width of the container */
+  height: 100%; /* The image will take up the full height of the container */
+  object-fit: cover; /* The image will cover the container, maintaining its aspect ratio */
+  position: relative;
+ }
+
+ .text-align-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.text-part {
+  margin-right: 7px;
+  margin-left: 7px;
+  margin-bottom: 5px;
+  vertical-align: bottom;
+  line-height: 2;
+}
+
+.card-fill{
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.answer-fill {
+  border: 5px solid #F0F0F0 !important;
+  border-radius: 0.5rem;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px #F0F0F0;
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+}

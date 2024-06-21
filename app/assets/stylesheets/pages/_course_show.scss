@@ -1,0 +1,54 @@
+.list-group-item {
+  border: none !important;
+}
+
+.title-border-bottom {
+  border-bottom: 5px solid #000;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.title-lesson {
+  font-size: 1.5em;
+}
+
+.title-lesson-disabled {
+  font-size: 1.5em;
+  color: #CCCCCC;
+}
+
+
+.emoji-lesson {
+  font-size: 1.5em;
+}
+
+.lesson-active {
+  border: 5px solid $blue !important;
+  border-radius: .5rem;
+  background-color: $white;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px $blue;
+  margin-bottom: 1rem;
+}
+
+
+
+.lesson-active:hover {
+  background-color: $light-blue;
+}
+
+.lesson-disabled {
+  border: 5px solid #F0F0F0 !important;
+  border-radius: 0.5rem;
+  padding: 20px 40px;
+  margin: 5px;
+  color: black;
+  box-shadow: 4px 4px 0px #F0F0F0;
+  margin-bottom: 1rem;
+}
+
+.list-group-item {
+  border-radius: 0.5rem !important;
+}

@@ -1,0 +1,116 @@
+// all courses page
+
+.card-course {
+  border: 5px solid #000;
+  overflow: hidden;
+  background: white;
+  box-shadow: 4px 4px 0px black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.card-course:hover {
+  box-shadow: 8px 8px 0px $black;
+}
+
+.card-dashboard {
+  border: 5px solid #000;
+  overflow: hidden;
+  background: white;
+  box-shadow: 4px 4px 0px black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-height: 450px; /* Set the desired max height for the card containers */
+  overflow-y: auto; /* Make the leaderboard scrollable if content exceeds the max height */
+}
+
+.card-dashboard:hover {
+  box-shadow: 8px 8px 0px $black;
+}
+
+
+
+// .card-course p {
+//   font-size: 20px;
+// }
+
+// course show page
+
+.card-course-show {
+  overflow: hidden;
+  background: white;
+  border-radius: .5rem;
+  padding: 16px;
+}
+
+// celebration page card
+
+.card-celebration {
+  width: 150px;
+  border: 5px solid $black;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  margin: 1rem;
+}
+
+.card-celebration-header {
+  background-color:$black;
+  color: white;
+  padding: 10px;
+  // border-bottom: 2px solid #F4C542;
+}
+
+.card-celebration-body {
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.celebration-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.celebration-value {
+  font-size: 24px;
+  color: $black;
+  font-weight: bold;
+}
+
+// sign up and log in page
+
+.card-form {
+  border: 5px solid #000;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 4px 4px 0px black;
+  border-radius: .5rem;
+  padding: 3rem;
+}
+
+// course show
+
+.card-lesson {
+  border-radius: 0.5rem;
+}
+
+
+// Store
+
+.card-store {
+  border: 5px solid #000;
+  overflow: hidden;
+  background: white;
+  box-shadow: 4px 4px 0px black;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.card-store-content {
+  margin-left: 1rem;
+}
